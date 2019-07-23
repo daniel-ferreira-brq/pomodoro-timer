@@ -119,7 +119,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /**
- * @license Angular v8.1.1
+ * @license Angular v8.1.2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -6565,7 +6565,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('8.1.1');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('8.1.2');
 
 /**
  * @license
@@ -7056,7 +7056,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "R3BoundTarget", function() { return R3BoundTarget; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /**
- * @license Angular v8.1.1
+ * @license Angular v8.1.2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -25442,7 +25442,7 @@ function publishFacade(global) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION$1 = new Version('8.1.1');
+var VERSION$1 = new Version('8.1.2');
 
 /**
  * @license
@@ -35674,7 +35674,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /**
- * @license Angular v8.1.1
+ * @license Angular v8.1.2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54705,7 +54705,7 @@ var Version = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.1.1');
+var VERSION = new Version('8.1.2');
 
 /**
  * @license
@@ -66882,7 +66882,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /**
- * @license Angular v8.1.1
+ * @license Angular v8.1.2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -67706,6 +67706,8 @@ var Validators = /** @class */ (function () {
      * @returns A validator function that returns an error map with the
      * `min` property if the validation check fails, otherwise `null`.
      *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.min = function (min) {
         return function (control) {
@@ -67736,6 +67738,8 @@ var Validators = /** @class */ (function () {
      * @returns A validator function that returns an error map with the
      * `max` property if the validation check fails, otherwise `null`.
      *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.max = function (max) {
         return function (control) {
@@ -67765,6 +67769,8 @@ var Validators = /** @class */ (function () {
      * @returns An error map with the `required` property
      * if the validation check fails, otherwise `null`.
      *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.required = function (control) {
         return isEmptyInputValue(control.value) ? { 'required': true } : null;
@@ -67786,6 +67792,9 @@ var Validators = /** @class */ (function () {
      *
      * @returns An error map that contains the `required` property
      * set to `true` if the validation check fails, otherwise `null`.
+     *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.requiredTrue = function (control) {
         return control.value === true ? null : { 'required': true };
@@ -67806,6 +67815,8 @@ var Validators = /** @class */ (function () {
      *
      * @returns An error map with the `email` property
      * if the validation check fails, otherwise `null`.
+     *
+     * @see `updateValueAndValidity()`
      *
      */
     Validators.email = function (control) {
@@ -67836,6 +67847,9 @@ var Validators = /** @class */ (function () {
      *
      * @returns A validator function that returns an error map with the
      * `minlength` if the validation check fails, otherwise `null`.
+     *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.minLength = function (minLength) {
         return function (control) {
@@ -67870,6 +67884,9 @@ var Validators = /** @class */ (function () {
      *
      * @returns A validator function that returns an error map with the
      * `maxlength` property if the validation check fails, otherwise `null`.
+     *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.maxLength = function (maxLength) {
         return function (control) {
@@ -67883,11 +67900,6 @@ var Validators = /** @class */ (function () {
      * @description
      * Validator that requires the control's value to match a regex pattern. This validator is also
      * provided by default if you use the HTML5 `pattern` attribute.
-     *
-     * Note that if a Regexp is provided, the Regexp is used as is to test the values. On the other
-     * hand, if a string is passed, the `^` character is prepended and the `$` character is
-     * appended to the provided string (if not already present), and the resulting regular
-     * expression is used to test the values.
      *
      * @usageNotes
      *
@@ -67903,8 +67915,16 @@ var Validators = /** @class */ (function () {
      * <input pattern="[a-zA-Z ]*">
      * ```
      *
+     * @param pattern A regular expression to be used as is to test the values, or a string.
+     * If a string is passed, the `^` character is prepended and the `$` character is
+     * appended to the provided string (if not already present), and the resulting regular
+     * expression is used to test the values.
+     *
      * @returns A validator function that returns an error map with the
      * `pattern` property if the validation check fails, otherwise `null`.
+     *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.pattern = function (pattern) {
         if (!pattern)
@@ -67936,6 +67956,9 @@ var Validators = /** @class */ (function () {
     /**
      * @description
      * Validator that performs no operation.
+     *
+     * @see `updateValueAndValidity()`
+     *
      */
     Validators.nullValidator = function (control) { return null; };
     Validators.compose = function (validators) {
@@ -67955,7 +67978,10 @@ var Validators = /** @class */ (function () {
      *
      * @returns A validator function that returns an error map with the
      * merged error objects of the async validators if the validation check fails, otherwise `null`.
-    */
+     *
+     * @see `updateValueAndValidity()`
+     *
+     */
     Validators.composeAsync = function (validators) {
         if (!validators)
             return null;
@@ -69462,6 +69488,10 @@ var AbstractControl = /** @class */ (function () {
     /**
      * Sets the synchronous validators that are active on this control.  Calling
      * this overwrites any existing sync validators.
+     *
+     * When you add or remove a validator at run time, you must call
+     * `updateValueAndValidity()` for the new validation to take effect.
+     *
      */
     AbstractControl.prototype.setValidators = function (newValidator) {
         this.validator = coerceToValidator(newValidator);
@@ -69469,16 +69499,28 @@ var AbstractControl = /** @class */ (function () {
     /**
      * Sets the async validators that are active on this control. Calling this
      * overwrites any existing async validators.
+     *
+     * When you add or remove a validator at run time, you must call
+     * `updateValueAndValidity()` for the new validation to take effect.
+     *
      */
     AbstractControl.prototype.setAsyncValidators = function (newValidator) {
         this.asyncValidator = coerceToAsyncValidator(newValidator);
     };
     /**
      * Empties out the sync validator list.
+     *
+     * When you add or remove a validator at run time, you must call
+     * `updateValueAndValidity()` for the new validation to take effect.
+     *
      */
     AbstractControl.prototype.clearValidators = function () { this.validator = null; };
     /**
      * Empties out the async validator list.
+     *
+     * When you add or remove a validator at run time, you must call
+     * `updateValueAndValidity()` for the new validation to take effect.
+     *
      */
     AbstractControl.prototype.clearAsyncValidators = function () { this.asyncValidator = null; };
     /**
@@ -73550,7 +73592,7 @@ var FormBuilder = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('8.1.1');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('8.1.2');
 
 /**
  * @license
@@ -73695,7 +73737,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /**
- * @license Angular v8.1.1
+ * @license Angular v8.1.2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -74135,7 +74177,7 @@ var CachedResourceLoader = /** @class */ (function (_super) {
 /**
  * @publicApi
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('8.1.1');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('8.1.2');
 
 /**
  * @license
@@ -74246,7 +74288,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /**
- * @license Angular v8.1.1
+ * @license Angular v8.1.2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -76750,7 +76792,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["Version"]('8.1.1');
+var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_2__["Version"]('8.1.2');
 
 /**
  * @license

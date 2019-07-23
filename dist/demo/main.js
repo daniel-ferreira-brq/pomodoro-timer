@@ -6392,7 +6392,7 @@ module.exports = "p {\r\n  font-family: Lato;\r\n}\r\n/*# sourceMappingURL=data:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header></app-header>\r\n<h1>{{ title }}</h1>\r\n\r\n<p>\r\n  Start editing to see some magic happen :)\r\n</p>\r\n"
+module.exports = "<app-header></app-header>\r\n<app-body></app-body>\r\n<app-foot></app-foot>\r\n\r\n"
 
 /***/ }),
 
@@ -6447,6 +6447,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header/header.component */ "./src/app/header/header.component.ts");
+/* harmony import */ var _body_body_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./body/body.component */ "./src/app/body/body.component.ts");
+/* harmony import */ var _foot_foot_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./foot/foot.component */ "./src/app/foot/foot.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6458,17 +6460,224 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]],
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"], _header_header_component__WEBPACK_IMPORTED_MODULE_4__["HeaderComponent"]],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"], _header_header_component__WEBPACK_IMPORTED_MODULE_4__["HeaderComponent"], _body_body_component__WEBPACK_IMPORTED_MODULE_5__["BodyComponent"], _foot_foot_component__WEBPACK_IMPORTED_MODULE_6__["FootComponent"]],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]],
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/body/body.component.css":
+/*!*****************************************!*\
+  !*** ./src/app/body/body.component.css ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".app-body-menu {\r\n    margin: 0 auto;\r\n    display: inline-flex;\r\n    text-align: center;\r\n    height: 50px;\r\n}\r\n.app-body-active {\r\n    font-weight: bold;\r\n    background-color: whitesmoke;\r\n}\r\n.body-temporizador{\r\n    font-size: 75px;\r\n    margin:0 auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYm9keS9ib2R5LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLG1CQUFtQjtJQUNuQixhQUFhO0NBQ2hCO0FBQ0Q7SUFDSSxrQkFBa0I7SUFDbEIsNkJBQTZCO0NBQ2hDO0FBRUQ7SUFDSSxnQkFBZ0I7SUFDaEIsY0FBYztDQUNqQiIsImZpbGUiOiJzcmMvYXBwL2JvZHkvYm9keS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmFwcC1ib2R5LW1lbnUge1xyXG4gICAgbWFyZ2luOiAwIGF1dG87XHJcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGhlaWdodDogNTBweDtcclxufVxyXG4uYXBwLWJvZHktYWN0aXZlIHtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcclxufVxyXG5cclxuLmJvZHktdGVtcG9yaXphZG9ye1xyXG4gICAgZm9udC1zaXplOiA3NXB4O1xyXG4gICAgbWFyZ2luOjAgYXV0bztcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/body/body.component.html":
+/*!******************************************!*\
+  !*** ./src/app/body/body.component.html ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-sm-10 app-body-menu\">\n      <div class=\"col-sm-3\"><a (click)=\"pomodoro()\" href=\"javascript:void(0)\">Pomodoro </a> </div>\n      <div class=\"col-sm-6\"><a (click)=\"grandeIntervalo()\" href=\"javascript:void(0)\">Intervalo grande</a></div>\n      <div class=\"col-sm-3\"><a (click)=\"pequenoIntervalo()\" href=\"javascript:void(0)\">Intervalo pequeno</a></div>\n  </div>  \n</div>\n\n<div class=\"row\">\n    <div class=\"body-temporizador\">\n        <p class=\"\">\n            {{minutos}}:{{segundos}}\n        </p>\n    </div>\n</div>\n\n<div class=\"row\">\n        <div style=\"margin: 0 auto;\">\n            <div class=\"col-sm-12\">\n                <button (click)='cronometro()'>start</button>\n                <button (click)='parar()'>stop</button>\n                <button (click)='resetar()'>reset</button>\n            </div>\n        </div>\n    </div>\n"
+
+/***/ }),
+
+/***/ "./src/app/body/body.component.ts":
+/*!****************************************!*\
+  !*** ./src/app/body/body.component.ts ***!
+  \****************************************/
+/*! exports provided: BodyComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BodyComponent", function() { return BodyComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var BodyComponent = /** @class */ (function () {
+    function BodyComponent() {
+        this.minutos = '25';
+        this.segundos = '00';
+        this.tipoReset = 'po';
+        this.startClicavel = true;
+        this.timeout = true;
+    }
+    BodyComponent.prototype.cronometro = function () {
+        if (this.startClicavel) {
+            this.timeout = true;
+            this.setarTimeout(60);
+            this.startClicavel = false;
+        }
+    };
+    BodyComponent.prototype.parar = function () {
+        this.timeout = false;
+        this.startClicavel = true;
+    };
+    BodyComponent.prototype.resetar = function () {
+        if (this.tipoReset == 'po') {
+            this.minutos = '25';
+            this.segundos = '00';
+        }
+        else if (this.tipoReset == 'g') {
+            this.minutos = '10';
+            this.segundos = '00';
+        }
+        else if (this.tipoReset == 'p') {
+            this.minutos = '5';
+            this.segundos = '00';
+        }
+        this.startClicavel = true;
+    };
+    BodyComponent.prototype.decremento = function () {
+        var segundoAtual = parseInt(this.segundos) - 1;
+        if (segundoAtual <= 0) {
+            if (parseInt(this.minutos) == 0) {
+                return;
+            }
+            this.minutos = (parseInt(this.minutos) - 1).toString();
+            this.segundos = '59';
+            this.setarTimeout(1000);
+            return;
+        }
+        if (segundoAtual < 10) {
+            this.segundos = 0 + segundoAtual.toString();
+            this.setarTimeout(1000);
+            return;
+        }
+        this.segundos = segundoAtual.toString();
+        this.setarTimeout(1000);
+    };
+    BodyComponent.prototype.pequenoIntervalo = function () {
+        var _this = this;
+        if (this.tipoReset == 'p')
+            return;
+        this.parar();
+        this.tipoReset = 'p';
+        setTimeout(function () { return _this.resetar(); }, 800);
+    };
+    BodyComponent.prototype.grandeIntervalo = function () {
+        var _this = this;
+        if (this.tipoReset == 'g')
+            return;
+        this.parar();
+        this.tipoReset = 'g';
+        setTimeout(function () { return _this.resetar(); }, 800);
+    };
+    BodyComponent.prototype.pomodoro = function () {
+        var _this = this;
+        if (this.tipoReset == 'po')
+            return;
+        this.parar();
+        this.tipoReset = 'po';
+        setTimeout(function () { return _this.resetar(); }, 800);
+    };
+    BodyComponent.prototype.setarTimeout = function (segundos) {
+        var _this = this;
+        if (this.timeout)
+            setTimeout(function () { _this.decremento(); }, segundos);
+    };
+    BodyComponent.prototype.ngOnInit = function () {
+    };
+    BodyComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-body',
+            template: __webpack_require__(/*! ./body.component.html */ "./src/app/body/body.component.html"),
+            styles: [__webpack_require__(/*! ./body.component.css */ "./src/app/body/body.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], BodyComponent);
+    return BodyComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/foot/foot.component.css":
+/*!*****************************************!*\
+  !*** ./src/app/foot/foot.component.css ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".footer {\r\n\r\n  position: fixed;\r\n  left: 0;\r\n  bottom: 0;\r\n  width: 100%;\r\n}\r\n\r\n#data-pomodo{\r\n    margin: 0 auto;\r\n    font-weight: bold;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZm9vdC9mb290LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsZ0JBQWdCO0VBQ2hCLFFBQVE7RUFDUixVQUFVO0VBQ1YsWUFBWTtDQUNiOztBQUVEO0lBQ0ksZUFBZTtJQUNmLGtCQUFrQjtDQUNyQiIsImZpbGUiOiJzcmMvYXBwL2Zvb3QvZm9vdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZvb3RlciB7XHJcblxyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICBsZWZ0OiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuI2RhdGEtcG9tb2Rve1xyXG4gICAgbWFyZ2luOiAwIGF1dG87XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/foot/foot.component.html":
+/*!******************************************!*\
+  !*** ./src/app/foot/foot.component.html ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row footer\">\n  <div id=\"data-pomodo\" tyle=\"\" class=\"\">Pomodoro timer since 23/07/2019</div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/foot/foot.component.ts":
+/*!****************************************!*\
+  !*** ./src/app/foot/foot.component.ts ***!
+  \****************************************/
+/*! exports provided: FootComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FootComponent", function() { return FootComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var FootComponent = /** @class */ (function () {
+    function FootComponent() {
+    }
+    FootComponent.prototype.ngOnInit = function () {
+    };
+    FootComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-foot',
+            template: __webpack_require__(/*! ./foot.component.html */ "./src/app/foot/foot.component.html"),
+            styles: [__webpack_require__(/*! ./foot.component.css */ "./src/app/foot/foot.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], FootComponent);
+    return FootComponent;
 }());
 
 
@@ -6482,7 +6691,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "header{\r\n    background-color:red;\r\n    color:green;\r\n    padding: 25px;\r\n   border-radius: 20px;\r\n   border: 1px solid green;\r\n   \r\n}\r\n\r\n.app-header-title{\r\n    font-size: 14px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0kscUJBQXFCO0lBQ3JCLFlBQVk7SUFDWixjQUFjO0dBQ2Ysb0JBQW9CO0dBQ3BCLHdCQUF3Qjs7Q0FFMUI7O0FBRUQ7SUFDSSxnQkFBZ0I7Q0FDbkIiLCJmaWxlIjoic3JjL2FwcC9oZWFkZXIvaGVhZGVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoZWFkZXJ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOnJlZDtcclxuICAgIGNvbG9yOmdyZWVuO1xyXG4gICAgcGFkZGluZzogMjVweDtcclxuICAgYm9yZGVyLXJhZGl1czogMjBweDtcclxuICAgYm9yZGVyOiAxcHggc29saWQgZ3JlZW47XHJcbiAgIFxyXG59XHJcblxyXG4uYXBwLWhlYWRlci10aXRsZXtcclxuICAgIGZvbnQtc2l6ZTogMTRweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -6493,7 +6702,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  header works!\n</p>\n"
+module.exports = "<header>\n  <div class=\"row\">\n      <div class=\"col-sm-6\">\n          <h1>Cronômetro de Pomodoro <span class=\"app-header-title\">by Daniel</span></h1>    \n        </div>        \n  </div>\n  \n</header>"
 
 /***/ }),
 

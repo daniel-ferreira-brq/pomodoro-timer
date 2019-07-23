@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { timingSafeEqual } from 'crypto';
+
 
 @Component({
   selector: 'app-body',
@@ -23,25 +23,25 @@ export class BodyComponent implements OnInit {
   }
 
   parar(): void {
-    this.timeout = false;;
+    this.timeout = false;
     this.startClicavel = true;
   }
 
   resetar(): void {
-    if(this.tipoReset = 'po'){
+   
+    if(this.tipoReset == 'po'){
       this.minutos = '25';
       this.segundos = '00';
 
-    } else if(this.tipoReset = 'g'){
+    } else if(this.tipoReset == 'g'){
       this.minutos = '10';
       this.segundos = '00';
     }
-    else{
-      this.minutos = '05';
+    else if(this.tipoReset == 'p'){
+      this.minutos = '5';
       this.segundos = '00';
-    }
-    
-    this.timeout = true;;
+    }  
+
     this.startClicavel = true;
   }
 
@@ -71,18 +71,33 @@ export class BodyComponent implements OnInit {
   }
 
   pequenoIntervalo(): void {
+  
+    if(this.tipoReset == 'p')
+    return;
+    this.parar();
     this.tipoReset = 'p';
-    this.minutos = '05';
-    this.segundos = '00';
-    this.startClicavel = true;
-    this.cronometro();
+    setTimeout(() => this.resetar(), 800);   
+    
   }
 
   grandeIntervalo(): void {
-    this.minutos = '10';
-    this.segundos = '00';
-    this.startClicavel = true;
-    this.cronometro();
+    
+    if(this.tipoReset == 'g')
+    return;
+    this.parar();
+    this.tipoReset = 'g';
+    setTimeout(() => this.resetar(), 800);
+  
+  }
+
+  pomodoro(): void {
+    
+    if(this.tipoReset == 'po')
+    return;
+    this.parar();
+    this.tipoReset = 'po';
+    setTimeout(() => this.resetar(), 800);
+  
   }
 
   setarTimeout(segundos: number): void {
