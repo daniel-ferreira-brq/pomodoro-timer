@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-body',
@@ -10,7 +11,7 @@ export class BodyComponent implements OnInit {
   constructor() { }
   minutos: string = '25';
   segundos: string = '00'
-
+  tipoReset: string = 'po';
   startClicavel: boolean = true;
   timeout: boolean = true;
   cronometro(): void {
@@ -26,9 +27,20 @@ export class BodyComponent implements OnInit {
     this.startClicavel = true;
   }
 
-  resetar(): void{
-    this.minutos = '25';
-    this.segundos = '00';
+  resetar(): void {
+    if(this.tipoReset = 'po'){
+      this.minutos = '25';
+      this.segundos = '00';
+
+    } else if(this.tipoReset = 'g'){
+      this.minutos = '10';
+      this.segundos = '00';
+    }
+    else{
+      this.minutos = '05';
+      this.segundos = '00';
+    }
+    
     this.timeout = true;;
     this.startClicavel = true;
   }
@@ -56,6 +68,21 @@ export class BodyComponent implements OnInit {
 
     this.segundos = segundoAtual.toString();
     this.setarTimeout(1000)
+  }
+
+  pequenoIntervalo(): void {
+    this.tipoReset = 'p';
+    this.minutos = '05';
+    this.segundos = '00';
+    this.startClicavel = true;
+    this.cronometro();
+  }
+
+  grandeIntervalo(): void {
+    this.minutos = '10';
+    this.segundos = '00';
+    this.startClicavel = true;
+    this.cronometro();
   }
 
   setarTimeout(segundos: number): void {
