@@ -1,8 +1,0 @@
-/* Add application styles & imports to this file! */
-
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
-body{
-    margin:3px;
-    font-family: 'Courier New', Courier, monospace
-}
