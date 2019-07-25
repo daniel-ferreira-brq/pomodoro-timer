@@ -689,7 +689,7 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.9' };
+var core = module.exports = { version: '2.5.7' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -894,18 +894,6 @@ var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) 
 };
 exports.BREAK = BREAK;
 exports.RETURN = RETURN;
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_function-to-string.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/core-js/modules/_function-to-string.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./_shared */ "./node_modules/core-js/modules/_shared.js")('native-function-to-string', Function.toString);
 
 
 /***/ }),
@@ -1437,7 +1425,6 @@ module.exports = {
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js");
 var getKeys = __webpack_require__(/*! ./_object-keys */ "./node_modules/core-js/modules/_object-keys.js");
 var gOPS = __webpack_require__(/*! ./_object-gops */ "./node_modules/core-js/modules/_object-gops.js");
 var pIE = __webpack_require__(/*! ./_object-pie */ "./node_modules/core-js/modules/_object-pie.js");
@@ -1467,10 +1454,7 @@ module.exports = !$assign || __webpack_require__(/*! ./_fails */ "./node_modules
     var length = keys.length;
     var j = 0;
     var key;
-    while (length > j) {
-      key = keys[j++];
-      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
-    }
+    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
   } return T;
 } : $assign;
 
@@ -1786,8 +1770,8 @@ var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/module
 var hide = __webpack_require__(/*! ./_hide */ "./node_modules/core-js/modules/_hide.js");
 var has = __webpack_require__(/*! ./_has */ "./node_modules/core-js/modules/_has.js");
 var SRC = __webpack_require__(/*! ./_uid */ "./node_modules/core-js/modules/_uid.js")('src');
-var $toString = __webpack_require__(/*! ./_function-to-string */ "./node_modules/core-js/modules/_function-to-string.js");
 var TO_STRING = 'toString';
+var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
 
 __webpack_require__(/*! ./_core */ "./node_modules/core-js/modules/_core.js").inspectSource = function (it) {
@@ -1929,7 +1913,7 @@ var store = global[SHARED] || (global[SHARED] = {});
 })('versions', []).push({
   version: core.version,
   mode: __webpack_require__(/*! ./_library */ "./node_modules/core-js/modules/_library.js") ? 'pure' : 'global',
-  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
 });
 
 
@@ -2588,20 +2572,19 @@ module.exports = __webpack_require__(/*! ./_collection */ "./node_modules/core-j
 
 "use strict";
 
-var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
 var each = __webpack_require__(/*! ./_array-methods */ "./node_modules/core-js/modules/_array-methods.js")(0);
 var redefine = __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js");
 var meta = __webpack_require__(/*! ./_meta */ "./node_modules/core-js/modules/_meta.js");
 var assign = __webpack_require__(/*! ./_object-assign */ "./node_modules/core-js/modules/_object-assign.js");
 var weak = __webpack_require__(/*! ./_collection-weak */ "./node_modules/core-js/modules/_collection-weak.js");
 var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/modules/_is-object.js");
+var fails = __webpack_require__(/*! ./_fails */ "./node_modules/core-js/modules/_fails.js");
 var validate = __webpack_require__(/*! ./_validate-collection */ "./node_modules/core-js/modules/_validate-collection.js");
-var NATIVE_WEAK_MAP = __webpack_require__(/*! ./_validate-collection */ "./node_modules/core-js/modules/_validate-collection.js");
-var IS_IE11 = !global.ActiveXObject && 'ActiveXObject' in global;
 var WEAK_MAP = 'WeakMap';
 var getWeak = meta.getWeak;
 var isExtensible = Object.isExtensible;
 var uncaughtFrozenStore = weak.ufstore;
+var tmp = {};
 var InternalMap;
 
 var wrapper = function (get) {
@@ -2629,7 +2612,7 @@ var methods = {
 var $WeakMap = module.exports = __webpack_require__(/*! ./_collection */ "./node_modules/core-js/modules/_collection.js")(WEAK_MAP, wrapper, methods, weak, true, true);
 
 // IE11 WeakMap frozen keys fix
-if (NATIVE_WEAK_MAP && IS_IE11) {
+if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp), 7).get(tmp) != 7; })) {
   InternalMap = weak.getConstructor(wrapper, WEAK_MAP);
   assign(InternalMap.prototype, methods);
   meta.NEED = true;
@@ -2863,6 +2846,50 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
   };
 } });
 
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/app.component.html":
+/*!**************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/app.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<app-header></app-header>\r\n<app-body></app-body>\r\n<app-foot></app-foot>\r\n\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/body/body.component.html":
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/body/body.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-sm-10 app-body-menu\">\n      <div class=\"col-sm-3\"><a (click)=\"pomodoro()\" href=\"javascript:void(0)\">Pomodoro </a> </div>\n      <div class=\"col-sm-6\"><a (click)=\"grandeIntervalo()\" href=\"javascript:void(0)\">Intervalo grande</a></div>\n      <div class=\"col-sm-3\"><a (click)=\"pequenoIntervalo()\" href=\"javascript:void(0)\">Intervalo pequeno</a></div>\n  </div>  \n</div>\n\n<div class=\"row\">\n    <div class=\"body-temporizador\">\n        <p class=\"\">\n            {{minutos}}:{{segundos}}\n        </p>\n    </div>\n</div>\n\n<div class=\"row\">\n        <div style=\"margin: 0 auto;\">\n            <div class=\"col-sm-12\">\n                <button (click)='cronometro()'>start</button>\n                <button (click)='parar()'>stop</button>\n                <button (click)='resetar()'>reset</button>\n            </div>\n        </div>\n    </div>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/foot/foot.component.html":
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/foot/foot.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row footer\">\n  <div id=\"data-pomodo\" tyle=\"\" class=\"\">Pomodoro timer since 23/07/2019</div>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/header/header.component.html":
+/*!************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/header/header.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<header>\n  <div class=\"row\">\n      <div class=\"col-sm-6\">\n          <h1>Cronômetro de Pomodoro <span class=\"app-header-title\">by Daniel</span></h1>    \n        </div>        \n  </div>\n  \n</header>"
 
 /***/ }),
 
@@ -6381,18 +6408,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "p {\r\n  font-family: Lato;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBa0I7Q0FDbkIiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInAge1xyXG4gIGZvbnQtZmFtaWx5OiBMYXRvO1xyXG59Il19 */"
-
-/***/ }),
-
-/***/ "./src/app/app.component.html":
-/*!************************************!*\
-  !*** ./src/app/app.component.html ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<app-header></app-header>\r\n<app-body></app-body>\r\n<app-foot></app-foot>\r\n\r\n"
+module.exports = "p {\r\n  font-family: Lato;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInAge1xyXG4gIGZvbnQtZmFtaWx5OiBMYXRvO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -6421,7 +6437,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'my-app',
-            template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
+            template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         })
     ], AppComponent);
@@ -6449,6 +6465,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header/header.component */ "./src/app/header/header.component.ts");
 /* harmony import */ var _body_body_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./body/body.component */ "./src/app/body/body.component.ts");
 /* harmony import */ var _foot_foot_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./foot/foot.component */ "./src/app/foot/foot.component.ts");
+/* harmony import */ var _angular_service_worker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/service-worker */ "./node_modules/@angular/service-worker/fesm5/service-worker.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6462,12 +6480,14 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]],
+            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_7__["ServiceWorkerModule"].register('ngsw-worker.js', { enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].production })],
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"], _header_header_component__WEBPACK_IMPORTED_MODULE_4__["HeaderComponent"], _body_body_component__WEBPACK_IMPORTED_MODULE_5__["BodyComponent"], _foot_foot_component__WEBPACK_IMPORTED_MODULE_6__["FootComponent"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]],
         })
@@ -6486,18 +6506,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".app-body-menu {\r\n    margin: 0 auto;\r\n    display: inline-flex;\r\n    text-align: center;\r\n    height: 50px;\r\n}\r\n.app-body-active {\r\n    font-weight: bold;\r\n    background-color: whitesmoke;\r\n}\r\n.body-temporizador{\r\n    font-size: 75px;\r\n    margin:0 auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYm9keS9ib2R5LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLG1CQUFtQjtJQUNuQixhQUFhO0NBQ2hCO0FBQ0Q7SUFDSSxrQkFBa0I7SUFDbEIsNkJBQTZCO0NBQ2hDO0FBRUQ7SUFDSSxnQkFBZ0I7SUFDaEIsY0FBYztDQUNqQiIsImZpbGUiOiJzcmMvYXBwL2JvZHkvYm9keS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmFwcC1ib2R5LW1lbnUge1xyXG4gICAgbWFyZ2luOiAwIGF1dG87XHJcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGhlaWdodDogNTBweDtcclxufVxyXG4uYXBwLWJvZHktYWN0aXZlIHtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcclxufVxyXG5cclxuLmJvZHktdGVtcG9yaXphZG9ye1xyXG4gICAgZm9udC1zaXplOiA3NXB4O1xyXG4gICAgbWFyZ2luOjAgYXV0bztcclxufSJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/body/body.component.html":
-/*!******************************************!*\
-  !*** ./src/app/body/body.component.html ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"row\">\n  <div class=\"col-sm-10 app-body-menu\">\n      <div class=\"col-sm-3\"><a (click)=\"pomodoro()\" href=\"javascript:void(0)\">Pomodoro </a> </div>\n      <div class=\"col-sm-6\"><a (click)=\"grandeIntervalo()\" href=\"javascript:void(0)\">Intervalo grande</a></div>\n      <div class=\"col-sm-3\"><a (click)=\"pequenoIntervalo()\" href=\"javascript:void(0)\">Intervalo pequeno</a></div>\n  </div>  \n</div>\n\n<div class=\"row\">\n    <div class=\"body-temporizador\">\n        <p class=\"\">\n            {{minutos}}:{{segundos}}\n        </p>\n    </div>\n</div>\n\n<div class=\"row\">\n        <div style=\"margin: 0 auto;\">\n            <div class=\"col-sm-12\">\n                <button (click)='cronometro()'>start</button>\n                <button (click)='parar()'>stop</button>\n                <button (click)='resetar()'>reset</button>\n            </div>\n        </div>\n    </div>\n"
+module.exports = ".app-body-menu {\r\n    margin: 0 auto;\r\n    display: -webkit-inline-box;\r\n    display: inline-flex;\r\n    text-align: center;\r\n    height: 50px;\r\n}\r\n.app-body-active {\r\n    font-weight: bold;\r\n    background-color: whitesmoke;\r\n}\r\n.body-temporizador{\r\n    font-size: 75px;\r\n    margin:0 auto;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYm9keS9ib2R5LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0lBQ2QsMkJBQW9CO0lBQXBCLG9CQUFvQjtJQUNwQixrQkFBa0I7SUFDbEIsWUFBWTtBQUNoQjtBQUNBO0lBQ0ksaUJBQWlCO0lBQ2pCLDRCQUE0QjtBQUNoQztBQUVBO0lBQ0ksZUFBZTtJQUNmLGFBQWE7QUFDakIiLCJmaWxlIjoic3JjL2FwcC9ib2R5L2JvZHkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5hcHAtYm9keS1tZW51IHtcclxuICAgIG1hcmdpbjogMCBhdXRvO1xyXG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBoZWlnaHQ6IDUwcHg7XHJcbn1cclxuLmFwcC1ib2R5LWFjdGl2ZSB7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XHJcbn1cclxuXHJcbi5ib2R5LXRlbXBvcml6YWRvcntcclxuICAgIGZvbnQtc2l6ZTogNzVweDtcclxuICAgIG1hcmdpbjowIGF1dG87XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -6609,7 +6618,7 @@ var BodyComponent = /** @class */ (function () {
     BodyComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-body',
-            template: __webpack_require__(/*! ./body.component.html */ "./src/app/body/body.component.html"),
+            template: __webpack_require__(/*! raw-loader!./body.component.html */ "./node_modules/raw-loader/index.js!./src/app/body/body.component.html"),
             styles: [__webpack_require__(/*! ./body.component.css */ "./src/app/body/body.component.css")]
         }),
         __metadata("design:paramtypes", [])
@@ -6628,18 +6637,7 @@ var BodyComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".footer {\r\n\r\n  position: fixed;\r\n  left: 0;\r\n  bottom: 0;\r\n  width: 100%;\r\n}\r\n\r\n#data-pomodo{\r\n    margin: 0 auto;\r\n    font-weight: bold;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZm9vdC9mb290LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsZ0JBQWdCO0VBQ2hCLFFBQVE7RUFDUixVQUFVO0VBQ1YsWUFBWTtDQUNiOztBQUVEO0lBQ0ksZUFBZTtJQUNmLGtCQUFrQjtDQUNyQiIsImZpbGUiOiJzcmMvYXBwL2Zvb3QvZm9vdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZvb3RlciB7XHJcblxyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICBsZWZ0OiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuI2RhdGEtcG9tb2Rve1xyXG4gICAgbWFyZ2luOiAwIGF1dG87XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxufSJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/foot/foot.component.html":
-/*!******************************************!*\
-  !*** ./src/app/foot/foot.component.html ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"row footer\">\n  <div id=\"data-pomodo\" tyle=\"\" class=\"\">Pomodoro timer since 23/07/2019</div>\n</div>"
+module.exports = ".footer {\r\n\r\n  position: fixed;\r\n  left: 0;\r\n  bottom: 0;\r\n  width: 100%;\r\n}\r\n\r\n#data-pomodo{\r\n    margin: 0 auto;\r\n    font-weight: bold;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZm9vdC9mb290LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsZUFBZTtFQUNmLE9BQU87RUFDUCxTQUFTO0VBQ1QsV0FBVztBQUNiOztBQUVBO0lBQ0ksY0FBYztJQUNkLGlCQUFpQjtBQUNyQiIsImZpbGUiOiJzcmMvYXBwL2Zvb3QvZm9vdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZvb3RlciB7XHJcblxyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICBsZWZ0OiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuI2RhdGEtcG9tb2Rve1xyXG4gICAgbWFyZ2luOiAwIGF1dG87XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -6672,7 +6670,7 @@ var FootComponent = /** @class */ (function () {
     FootComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-foot',
-            template: __webpack_require__(/*! ./foot.component.html */ "./src/app/foot/foot.component.html"),
+            template: __webpack_require__(/*! raw-loader!./foot.component.html */ "./node_modules/raw-loader/index.js!./src/app/foot/foot.component.html"),
             styles: [__webpack_require__(/*! ./foot.component.css */ "./src/app/foot/foot.component.css")]
         }),
         __metadata("design:paramtypes", [])
@@ -6691,18 +6689,7 @@ var FootComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "header{\r\n    background-color:red;\r\n    color:green;\r\n    padding: 25px;\r\n   border-radius: 20px;\r\n   border: 1px solid green;\r\n   \r\n}\r\n\r\n.app-header-title{\r\n    font-size: 14px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0kscUJBQXFCO0lBQ3JCLFlBQVk7SUFDWixjQUFjO0dBQ2Ysb0JBQW9CO0dBQ3BCLHdCQUF3Qjs7Q0FFMUI7O0FBRUQ7SUFDSSxnQkFBZ0I7Q0FDbkIiLCJmaWxlIjoic3JjL2FwcC9oZWFkZXIvaGVhZGVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoZWFkZXJ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOnJlZDtcclxuICAgIGNvbG9yOmdyZWVuO1xyXG4gICAgcGFkZGluZzogMjVweDtcclxuICAgYm9yZGVyLXJhZGl1czogMjBweDtcclxuICAgYm9yZGVyOiAxcHggc29saWQgZ3JlZW47XHJcbiAgIFxyXG59XHJcblxyXG4uYXBwLWhlYWRlci10aXRsZXtcclxuICAgIGZvbnQtc2l6ZTogMTRweDtcclxufSJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/header/header.component.html":
-/*!**********************************************!*\
-  !*** ./src/app/header/header.component.html ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<header>\n  <div class=\"row\">\n      <div class=\"col-sm-6\">\n          <h1>Cronômetro de Pomodoro <span class=\"app-header-title\">by Daniel</span></h1>    \n        </div>        \n  </div>\n  \n</header>"
+module.exports = "header{\r\n    background-color:red;\r\n    color:green;\r\n    padding: 25px;\r\n   border-radius: 20px;\r\n   border: 1px solid green;\r\n   \r\n}\r\n\r\n.app-header-title{\r\n    font-size: 14px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksb0JBQW9CO0lBQ3BCLFdBQVc7SUFDWCxhQUFhO0dBQ2QsbUJBQW1CO0dBQ25CLHVCQUF1Qjs7QUFFMUI7O0FBRUE7SUFDSSxlQUFlO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaGVhZGVye1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjpyZWQ7XHJcbiAgICBjb2xvcjpncmVlbjtcclxuICAgIHBhZGRpbmc6IDI1cHg7XHJcbiAgIGJvcmRlci1yYWRpdXM6IDIwcHg7XHJcbiAgIGJvcmRlcjogMXB4IHNvbGlkIGdyZWVuO1xyXG4gICBcclxufVxyXG5cclxuLmFwcC1oZWFkZXItdGl0bGV7XHJcbiAgICBmb250LXNpemU6IDE0cHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -6735,7 +6722,7 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-header',
-            template: __webpack_require__(/*! ./header.component.html */ "./src/app/header/header.component.html"),
+            template: __webpack_require__(/*! raw-loader!./header.component.html */ "./node_modules/raw-loader/index.js!./src/app/header/header.component.html"),
             styles: [__webpack_require__(/*! ./header.component.css */ "./src/app/header/header.component.css")]
         }),
         __metadata("design:paramtypes", [])
@@ -6743,6 +6730,34 @@ var HeaderComponent = /** @class */ (function () {
     return HeaderComponent;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.ts":
+/*!*****************************************!*\
+  !*** ./src/environments/environment.ts ***!
+  \*****************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+var environment = {
+    production: false
+};
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
 
 /***/ }),
